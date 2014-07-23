@@ -86,5 +86,32 @@ describe('Item', function(){
       expect(tv.value()).to.equal(1800);
     });
   });
+  describe('.value', function(){
+    it('should return the total value of all items searched for', function(done){
+      var tv = new Item('tv', 'living room', '7/14/2014', '1', '600');
+      var couch = new Item('couch', 'living room', '5/14/2014', '1', '1200');
+      var chair = new Item('chair', 'living room', '6/14/2014', '2', '500');
+      var table = new Item('table', 'dining room', '7/14/2013', '1', '2000');
+      var diningChair = new Item('chair', 'dining room', '5/14/2013', '4', '150');
+      var stove = new Item('stove', 'kitchen', '4/14/2014', '1', '2000');
 
+      tv.save(function(){
+        couch.save(function(){
+          chair.save(function(){
+            table.save(function(){
+              diningChair.save(function(){
+                stove.save(function(){
+                  Item.value({room:'living room'}, function(value){
+                    expect(value).to.equal(2800);
+                    done();
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+
+    });
+  });
 });
