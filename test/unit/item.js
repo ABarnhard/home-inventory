@@ -67,6 +67,7 @@ describe('Item', function(){
               //console.log(items);
               expect(items).to.be.ok;
               expect(items).to.have.length(1);
+              expect(items[0].name).to.equal('couch');
               Item.find({}, function(items1){
                 //console.log(items1);
                 expect(items1).to.be.ok;
@@ -79,6 +80,11 @@ describe('Item', function(){
       });
     });
   });
-
+  describe('#value', function(){
+    it('should return the total value of an item', function(){
+      var tv = new Item('tv', 'living room', '7/14/2014', '3', '600');
+      expect(tv.value()).to.equal(1800);
+    });
+  });
 
 });

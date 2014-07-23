@@ -22,4 +22,8 @@ Item.find = function(search, cb){
     cb(items);
   });
 };
+
+Item.prototype.value = function(){
+  return this.costEach * this.count;
+};
 module.exports = Item;
